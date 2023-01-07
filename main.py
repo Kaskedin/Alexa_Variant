@@ -14,7 +14,7 @@ import pyjokes
 listener = sr.Recognizer()
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
+engine.setProperty('voice', voices[0].id)
 
 def talk(text):
 
@@ -29,14 +29,14 @@ def take_command():
             voice = listener.listen(source)
             command = listener.recognize_google(voice)
             comand = command.lower()
-            if 'alexa' in command:
-                command = command.replace('alexa', '')
+            if 'alfred' in command:
+                command = command.replace('alfred', '')
                 print(command)
     except:
         pass
     return command
 
-def run_alexa():
+def run_alfred():
     command = take_command()
     print (command)
     if 'play' in command:
@@ -51,6 +51,16 @@ def run_alexa():
         info = wikipedia.summary(person, 1)
         print(info)
         talk(info)
+    elif 'what is' in command:
+        person =  command.replace('what is', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        talk(info)
+    elif 'when did' in command:
+        person =  command.replace('when did', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        talk(info)
     elif 'joke' in command:
         talk(pyjokes.get_joke())
     else:
@@ -58,4 +68,4 @@ def run_alexa():
 
 
 while True:
-    run_alexa()
+    run_alfred()
